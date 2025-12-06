@@ -1,0 +1,51 @@
+---
+title: Installation
+description: How to install snail!
+---
+
+Snail consists of a little `inject.js` script packaged in the asar archive, that loads all of the other patches from `~/.snail/`. That makes it easy to install & update, as you only need to modify one file once and update the rest without repacking slack.
+
+## GUI Installation
+
+This is the **recommended** way to install snail!
+
+### windows
+
+oop
+
+## Manual Installation
+
+This isn't exactly a guide, but here are the general steps to patch slack!
+
+1. Download the inject.js script [here](https://snail.hackclub.cc/assets/inject.js) and save it somewhere.
+2. Unpack slack's asar archive. On macOS, it's located at `/Applications/Slack.app/Contents/Resources/app.asar`. You can use the [asar](https://www.npmjs.com/package/asar) npm package to unpack it:
+
+   ```bash
+   bunx asar extract /path/to/app.asar /path/to/extracted
+   ```
+3. Put the contents of `inject.js` into `extracted/dist/main.bundle.cjs` at the top of the file!
+4. Repack the asar archive:
+
+   ```bash
+   bunx asar pack /path/to/extracted /path/to/app.asar
+   ```
+5. Disable electron's integrity check by setting the fuses
+    ```bash
+    bunx @electron/fuses write --app /path/to/app.asar EnableEmbeddedAsarIntegrityValidation=off
+    ```
+6. Create the `~/.snail/` directory and copy the following files into it:
+   - `config.json` example:
+    ```json
+    {
+      "serverUrl": "https://snail.hackclub.cc",
+      "pluginsEnabled": [
+        "snail-plugin-manager"
+      ],
+      "themesEnabled": []
+    }
+    ```
+   - `plugins/` (create an empty directory)
+   - `themes/` (create an empty directory)
+   - `internal/` -> download the [preload.js](https://snail.hackclub.cc/assets/preload.js) and [main.js](https://snail.hackclub.cc/assets/main.js) files and put them in here.
+7. (optional) If you want to use the react plugin manager, download the latest release from [here](https://github.com/espcaa/snail-plugin-manager/releases) and unzip it in `plugins/` (_if you don't install this, you'll need to edit the config.json file manually_)
+8. Restart slack!
