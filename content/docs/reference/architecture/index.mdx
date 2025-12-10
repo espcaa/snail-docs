@@ -1,6 +1,6 @@
 ---
-title: Snail loader
-description: :)
+title: Snail Architecture
+description: Technical overview of how Snail works
 ---
 
 ## General architecture
@@ -25,4 +25,4 @@ This script setups all of the ipc bridges to give restricted access to the files
 ### ~/.snail/internal/preload.js
 
 This script runs in an isolated context inside the renderer process. It has access to all of the ipc bridges and exposes a `Snail` global object to plugins and themes.
-You can read all of the documentation for the api exposed [here](https://docs.snail.hackclub.cc/docs/loader/api/).
+See the [API Reference](/docs/reference/api) for detailed documentation.

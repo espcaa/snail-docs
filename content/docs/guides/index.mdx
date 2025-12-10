@@ -1,0 +1,17 @@
+---
+title: Plugins Overview
+description: Learn how to build plugins for Snail
+---
+
+Plugins in Snail are TypeScript/JavaScript modules that run inside Slack's renderer process. They have access to Snail's restricted API through the `Window.Snail` global object, allowing you to customize and extend Slack's functionality.
+
+## What You Can Do
+
+- Patch React components to modify Slack's UI
+- Access filesystem and system APIs (with restrictions)
+- Create interactive UI elements
+- Hook into Slack's renderer process
+
+## Next Steps
+
+Start with the [Writing Your First Plugin](/docs/guides/writing-a-plugin) guide to get hands-on experience.

@@ -1,8 +1,7 @@
 ---
 title: Write your first plugin!
-description: plugins? interesting...
+description: Create your first Snail plugin from scratch
 ---
-
 
 ## Getting started
 
@@ -49,7 +48,7 @@ class MyPlugin implements Plugin {
 registerPlugin(new MyPlugin());
 ```
 
-- `dist/manifest.json`: this file is going to contain all of the info that the loader can get about your plugin (author, icon, entry,...) you can read more about it [here](./loader/plugin-manifest)
+- `dist/manifest.json`: contains metadata about your plugin. Learn more in the [Plugin Manifests](/docs/reference/plugin-manifest) guide.
 
 ## Building & testing 
 
@@ -64,6 +63,6 @@ This will compile everything & put it in dist/ folder.
 To test your plugin, just copy the contents of the dist/ folder into `~/.snail/plugins/your-plugin-name/` and restart slack! \
 You should see your plugin being loaded
 
-## Next steps
+## Next Steps
 
-Most plugins are going to want to interact with slack's ui or functionality, so you should go over to the [React thingy guide](./plugins/react) to learn how to do that!
+To interact with Slack's UI and create beautiful components, learn how to use React in the [Using and Patching React](/docs/guides/using-react) guide.
