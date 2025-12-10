@@ -2,3 +2,59 @@
 title: Using/Patching React
 description: atoms...
 ---
+
+Patching slack's ui + creating beautiful interactive components sadly requires using React. You could decide to ship your own version of react, but that would quickly cause a lot of problems:
+- huge bundle sizes
+- two instances of react, potentially causing context issues
+- incompatibility with slack's own components \
+\ 
+so here's how to fix that :p
+
+## Using slack's own react exposed by Snail!!
+
+_ To get react typing + ease of use, installing `snail-plugin-api` is recommended: _
+
+```bash
+bun add snail-plugin-api
+```
+
+### importing dependencies
+
+first, you can import react to get tsx support + typings:
+
+```ts
+import { React } from "snail-plugin-api";
+```
+
+then, for other dependencies, you can use findByProps(...props) to get the module you want. For example, to get `ReactDOM`:
+
+```ts
+import { findByProps } from "snail-plugin-api";
+const ReactDOM = findByProps("createPortal");
+```
+
+### Finding components
+
+To find components inside slack, you can use `findComponent`:
+
+```ts
+import { findComponent } from "snail-plugin-api";
+const Button = findComponent("Button");
+```
+
+## Patching components
+
+To patch components, you can use `patchComponent`:
+
+```tsx
+const BaseAvatar = findComponent("BaseAvatar");
+patchComponent(BaseAvatar, (props) => {
+  return (
+    <div style={{ filter: "hue-rotate(180deg)" }}>
+      <BaseAvatar {...props} __original />
+    </div>
+  );
+});
+```
+
+This will patch the `BaseAvatar` component to apply a hue-rotate filter to all avatars.

@@ -2,3 +2,68 @@
 title: Write your first plugin!
 description: plugins? interesting...
 ---
+
+
+## Getting started
+
+The recommended way to write a plugin is to use Typescript/Bun. You can install bun from [here](https://bun.sh) and it has typescript support built-in!
+
+## Setting up your project
+
+Setting up a project from scratch can be a bit tedious, so you can use the `snail-init`tool to make that easier :) \
+To use it, just run:
+
+```bash
+bunx snail-init
+```
+
+After answering a few questions, you'll get a folder with a basic plugin structure ready to go!
+
+## Plugin structure
+
+In the newly created folder, you'll find a few files:
+- `src/index.ts`: this is the entry of your plugin! \
+there, you can see how we register a Plugin class with start() and stop() methods.
+```js
+import {
+  Plugin,
+  registerPlugin,
+  findComponent,
+  patchComponent,
+} from "snail-plugin-api";
+
+class MyPlugin implements Plugin {
+  name = "Snail Plugin Manager";
+  description = "A plugin manager for Snail. ";
+  version = "1.0.0";
+
+  start() {
+    console.log("Hi snail!");
+  }
+
+  stop() {
+    console.log("Bye snail!");
+  }
+}
+
+registerPlugin(new MyPlugin());
+```
+
+- `dist/manifest.json`: this file is going to contain all of the info that the loader can get about your plugin (author, icon, entry,...) you can read more about it [here](./loader/plugin-manifest)
+
+## Building & testing 
+
+Because we're writing plugins using Typescript, we need to bundle them to normal javascript that snail can run. \
+To do that, we can use bun's built-in bundler! \
+To build your plugin, just run:
+```bash
+bun run build
+```
+This will compile everything & put it in dist/ folder.
+\
+To test your plugin, just copy the contents of the dist/ folder into `~/.snail/plugins/your-plugin-name/` and restart slack! \
+You should see your plugin being loaded
+
+## Next steps
+
+Most plugins are going to want to interact with slack's ui or functionality, so you should go over to the [React thingy guide](./plugins/react) to learn how to do that!

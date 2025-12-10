@@ -1,0 +1,30 @@
+---
+title: Plugins manifests
+description: manifesting... sounds like going on a strik-
+---
+
+~~i wonder if any of yall can get the joke~~
+
+## basic example
+
+```
+{
+  "name": "plugin-name",
+  "description": "this is my plugin!",
+  "author": "me myself and i",
+  "icon": "https://example.com/icon.png",
+  "version": "1.0.0",
+  "entry": "index.js",
+  "css": "index.css"
+}
+```
+
+## full property list 
+
+- `name` (string, required): the name of your plugin
+- `description` (string, required): a short description of your plugin
+- `author` (string, required): the author of the plugin
+- `icon` (string, optional): a url to an icon representing your plugin
+- `version` (string, required): the version of your plugin (should follow semver)
+- `entry` (string, required): the entry point of your plugin (relative to the manifest file)
+- `css` (string, optional): a path to a css file to load (relative to the manifest file)
