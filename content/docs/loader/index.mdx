@@ -1,13 +1,28 @@
 ---
-title: Hello World
-description: Your first document
+title: Snail loader
+description: :)
 ---
 
-Welcome to the docs! You can start writing documents in `/content/docs`.
+# General Architecture
 
-## What is Next?
+Snail works by injecting two scripts from `~/.snail/` into Slack's main process. This is achieved by unpacking slack's asar once and adding a few lines of code to load them. 
 
-<Cards>
-  <Card title="Learn more about Next.js" href="https://nextjs.org/docs" />
-  <Card title="Learn more about Fumadocs" href="https://fumadocs.dev" />
-</Cards>
+**Advantages:**
+- Updates are simple: you only need to modify the scripts in a user-writable directory.  
+- No need to repack Slack for each update.  
+
+**Disadvantages:**
+- Any program with access to `~/.snail/` can modify these scripts, potentially executing arbitrary code in Slack's main process.  
+
+I might try to implement a hardened version that directly ships with plugins inside slack's asar to reduce the risks. Anyway, as long as you don't run untrusted code, you should be fine :)
+
+# File Overview
+
+## ~/.snail/internal/main.js
+
+This script setups all of the ipc bridges to give restricted access to the filesystem and other sensible node APIs. Because it has full access to node, no plugin can run inside it. 
+
+## ~/.snail/internal/preload.js
+
+This script runs in an isolated context inside the renderer process. It has access to all of the ipc bridges and exposes a `Snail` global object to plugins and themes.
+You can read all of the documentation for the api exposed [here](https://docs.snail.hackclub.cc/docs/loader/api/).

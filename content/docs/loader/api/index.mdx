@@ -1,0 +1,22 @@
+---
+title: Snail API
+description: shiny stuff
+---
+
+# Snail API
+
+The Snail api is available trough `Window.Snail`inside slack after snail initialized.
+
+## npm package
+
+Because we love types and a clean api, you can use the npm package `snail-plugin-api` to get type definitions and a cleaner api when writing plugins and themes!! just install it with:
+
+```bash
+bun add snail-plugin-api
+```
+
+Then, in your plugin/theme code, you can import the right functions/types that you need :0
+
+```ts
+import {registerPlugin, Plugin} from 'snail-plugin-api'
+```
