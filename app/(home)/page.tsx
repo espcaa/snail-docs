@@ -112,14 +112,6 @@ export default function HomePage() {
             );
           })}
         </div>
-
-        {/* CTA Button */}
-        <Link
-          href="/docs/install"
-          className="px-8 py-3 rounded-lg bg-card/80 border border-border text-foreground font-semibold transition-all hover:shadow-lg hover:scale-105 hover:bg-secondary active:scale-95"
-        >
-          Quick Start
-        </Link>
       </div>
     </div>
   );
